@@ -2,33 +2,31 @@
  * Created by bendz on 19. 10. 2016.
  */
 //All ajax code is here
+
 $(document).ready(function(){
 
-    /*Sign up for free  --> Sign up form Ajax Call */
-    $("#singupform").submit(function(event){
-        //prevent defult php from processing
-        event.preventDefault();
-        //collect user inputs
-       var datatopost = $(this).serializeArray();
-        //send them to signup.php
+    /*Sign up for free  --> ajax call */
+    $('#singupform').submit(function(event){
+        event.preventDefault(); // prevent php default form processing
+        var data =  $(this).serializeArray();
         $.ajax({
-            url:"signup.php",
-            type:"POST",
-            data: datatopost,
-            success: function(data){
-                if(data) {
-                    $("#signupMessage").html(data);
+             url: "signup.php",
+             type: "POST",
+             data: data,
+                success:function(data){
+                   if(data) {
+                       $("#signupMessage").html(data);
+                   }
+                },
+                error: function(){
+                    $("#signupMessage").html("<div class='alert alert-danger'>There was an error with Ajax Call. Please" +
+                        "try again later</div>");
                 }
-            },
-            error: function(data){
-                $("#signupMessage").html("<div class='alert alert-danger'> There was an error with the Ajax Call." +
-                    "Please try again later .</div>");
-            }
         });
     });
 
-    /*Log in --> Log in form Ajax Call */
-    $("#loginform").submit(function(event){
+       /*Login   --> ajax call */
+   $("#loginform").submit(function(event){
         //prevent defult php from processing
         event.preventDefault();
         //collect user inputs
@@ -39,25 +37,38 @@ $(document).ready(function(){
             type:"POST",
             data: datatopost,
             success: function(data){
-                console.log(data);
                if( data === "success") {
-                   console.log("Logged in");
                    window.location.href = "mainpageloggedin.php";
-
                }
-
-                //var data1 = $.trim(data);
-                //if(data1 === "success") {
-                //    window.location("http://localhost/notesapp/mainpageloggedin.php");
-                //}else {
-                //    console.log(data);
-                //    $("#loginMessage").html(data);
-                //
-                //}
+               else {
+                $('#loginMessage').html(data);
+               }
             },
             error: function(data){
-                $("#loginMessage").html("<div class='alert alert-danger'> There was an error with the Ajax Call." +
-                    "Please try again later .</div>");
+                $("#loginMessage").html(data);
+            }
+
+        });
+
+    });
+
+
+       /*Forgot password   --> ajax call */
+   $("#forgotpasswordform").submit(function(event){
+        //prevent defult php from processing
+        event.preventDefault();
+        //collect user inputs
+        var datatopost = $(this).serializeArray();
+        //send them to signup.php
+        $.ajax({
+            url:"forgotpassword.php",
+            type:"POST",
+            data: datatopost,
+            success: function(data){
+              $("#forgotPasswordMessage").html(data);
+          },
+            error: function(data){
+                $("#signupMessage").html(data);
             }
 
         });
@@ -65,11 +76,4 @@ $(document).ready(function(){
     });
 
 });
-//Ajax call for sign up form
 
-
-//Ajax call for the login form
-
-
-
-//Ajax call for the forgot password form

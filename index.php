@@ -1,9 +1,10 @@
 <?php
 session_start();
 include 'connection.php';
+include "logout.php";
 
 //remember me
-include ('rememberme.php');
+ include ('rememberme.php');
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ include ('rememberme.php');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>Online notes </title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -74,7 +75,7 @@ include ('rememberme.php');
 </nav>
 
 
-<!-- JUMBOTRON     --->
+<!-- JUMBOTRON     -->
 <div class="jumbotron" id="myContainer">
     <h1>Online Notes App</h1>
 
@@ -104,7 +105,7 @@ include ('rememberme.php');
 
                         <!-- Sign up meesage errors -->
                         <div id="signupMessage">
-
+                        
                         </div>
 
                         <label for="username" class="sr-only">Username</label>
@@ -198,12 +199,12 @@ include ('rememberme.php');
                     <div class="form-group">
 
                         <!-- Sign up meesage errors -->
-                        <div id="forgotMessage">
+                        <div id="forgotPasswordMessage">
 
                         </div>
                         <div class="form-group">
-                            <label for="loginemail" class="sr-only">Email</label>
-                            <input type="email" name="loginemail" id="loginemail" class="form-control" placeholder="Email Adress" maxlength="50">
+                            <label for="forgotemail" class="sr-only">Email</label>
+                            <input type="email" name="forgotemail" id="forgotemail" class="form-control" placeholder="Email Adress" maxlength="50">
                         </div>
                     </div>
                     <div class="modal-footer">

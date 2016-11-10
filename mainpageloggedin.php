@@ -1,3 +1,13 @@
+<?php
+session_start();
+//check if session and redirect to index.php
+if (!isset($_SESSION['user_id'])) {
+
+    header('location:index.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>My notes</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -14,6 +24,13 @@
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src ="mynotes.js"></script>
     <![endif]-->
     <style>
         #container{
@@ -35,6 +52,28 @@
             border-color:rgb(29,104,158);
 
         }
+
+        .noteheader {
+            border: 1px solid grey;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            padding 0 10px;
+            background: linear-gradient(#FFFFFF,#ECEAE7);
+        }
+        .text {
+            font-size: 20px;
+            overflow: hidden;
+            white-space:nowrap;
+            text-overflow: ellipsis;
+        }
+        .timetext {
+            font-size: 14px;
+            overflow: hidden;
+            white-space:nowrap;
+            text-overflow: ellipsis;  
+        }
+
     </style>
 </head>
 <body>
@@ -74,7 +113,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a  href="#loginModal" >Logged in as <b>username</b></a></li>
-                <li><a  href="#loginModal" >Log out</a></li>
+                <li><a  href="index.php?logout=1" >Log out</a></li>
 
             </ul>
         </div>
@@ -84,8 +123,17 @@
 
 <!-- Container-->
 <div id="container">
+     <!-- ALERT MESSAGE -->
+    <div id='alert' class="alert alert-danger collapse"> 
+            <a class="close" data-dissmis='alert'>
+                 &times;
+            </a>
+
+            <p id='alertContent'></p>
+    </div>
+      
     <div class="row">
-        <div class="col-md-offset-3 col-md-6">    <!-- skip 3 colums and use next 6 -->
+     <div class="col-md-offset-3 col-md-6">    <!-- skip 3 colums and use next 6 -->
             <div class="buttons">
                 <button type="button" id="addNote" class="btn btn-lg blue">Add Note</button>
                 <button type="button" id="edit" class="btn btn-lg blue pull-right">Edit</button>
@@ -118,10 +166,7 @@
         <p> bENJAMIN DIzdarević   &copy; 2015 - <?php $today = date('Y');echo $today;?>  </p>
     </div>
 </div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+
 </body>
 </html>
 
@@ -132,6 +177,6 @@
         $('.collapse').collapse('hide');
     })
 
-
+    $('#notepad').hide();
 
 </script>
